@@ -1,0 +1,1 @@
+docker run -d -p 27017:27017 <path/to_app>/db_data:/data/db mongo

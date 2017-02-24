@@ -10,3 +10,4 @@ htmlcov/*
 results.xml
 pylint.out
 coverage.xml
+db_data/*
