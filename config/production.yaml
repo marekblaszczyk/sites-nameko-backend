@@ -3,4 +3,4 @@ WEB_SERVER_ADDRESS: '0.0.0.0:9000'
 rpc_exchange: 'nameko-rpc'
 max_workers: 10
 parent_calls_tracked: 10
-MONGODB_URL: 'mongodb://localhost:27017/sites'
+MONGODB_URL: 'mongodb://localhost:27017'

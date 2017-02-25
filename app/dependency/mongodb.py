@@ -6,13 +6,13 @@ from nameko.extensions import DependencyProvider
 
 class MongoDatabase(DependencyProvider):
 
-    def __init__(self):
+    def __init__(self, db_name='base'):
         self.databases = WeakKeyDictionary()
         self.client = None
+        self.db_name = db_name
 
     def setup(self):
         connection_uri = self.container.config['MONGODB_URL']
-        print connection_uri
         self.client = MongoClient(connection_uri)
 
     def stop(self):
@@ -20,10 +20,8 @@ class MongoDatabase(DependencyProvider):
         del self.client
 
     def get_dependency(self, worker_ctx):
-        _db = self.client[self.container.service_name]
-
+        _db = self.client[self.db_name]
         self.databases[worker_ctx] = _db
-
         return _db
 
     def worker_teardown(self, worker_ctx):
