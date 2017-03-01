@@ -1,0 +1,12 @@
+[run]
+branch = True
+omit = fabfile.py
+       scripts/*
+       tests/*
+       app/dependency/*
+
+[html]
+directory = build/htmlcov
+
+[xml]
+output = build/coverage.xml

@@ -27,5 +27,4 @@ class SiteService(object):
         for row in data:
             del row['_id']
             ret.append(row)
-
         return ret
