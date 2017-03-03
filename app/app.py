@@ -1,6 +1,7 @@
 from nameko.rpc import rpc
 from dependency.mongodb import MongoDatabase
 from exceptions import NoArgument, NotFound
+from pymongo.cursor import Cursor
 
 
 class SiteService(object):
@@ -15,20 +16,35 @@ class SiteService(object):
 
     @rpc
     def get_sites(self):
-        """Get all sites."""
+        """
+        Get all sites.
+
+        :return: List with site dicts
+        """
         sites = self.db.sites.find()
         return self.process(sites)
 
-    @staticmethod
-    def process(data):
-        """Process mongo cursor to list."""
-        ret = list()
-        for row in data:
-            del row['_id']
-            ret.append(row)
-        return ret
-
     @rpc
     def get_site(self, url):
-        """Get site by url."""
-        pass
+        """
+        Get site by url.
+
+        :param url: Url of page
+        :return: Dict with site
+        """
+
+        site = self.db.sites.find_one({'url': url})
+        return self.process(site)
+
+    @staticmethod
+    def process(data):
+        """Process data parameter."""
+        if isinstance(data, Cursor):
+            ret = list()
+            for row in data:
+                del row['_id']
+                ret.append(row)
+            return ret
+        if isinstance(data, dict):
+            del data['_id']
+            return data
