@@ -1,5 +1,6 @@
 """Dependency Provider for MongoDB."""
 from pymongo import MongoClient
+from pymongo.errors import ConnectionFailure
 from weakref import WeakKeyDictionary
 from nameko.extensions import DependencyProvider
 
@@ -13,7 +14,10 @@ class MongoDatabase(DependencyProvider):
 
     def setup(self):
         connection_uri = self.container.config['MONGODB_URL']
-        self.client = MongoClient(connection_uri)
+        try:
+            self.client = MongoClient(connection_uri)
+        except ConnectionFailure as e:
+            print 'Could not connect to MongoDB: {}'.format(e)
 
     def stop(self):
         self.client.close()

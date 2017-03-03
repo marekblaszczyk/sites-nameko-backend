@@ -1,7 +1,6 @@
 from nameko.rpc import rpc
 from dependency.mongodb import MongoDatabase
-import pymongo
-from pymongo import MongoClient
+from exceptions import NoArgument, NotFound
 
 
 class SiteService(object):
@@ -28,3 +27,8 @@ class SiteService(object):
             del row['_id']
             ret.append(row)
         return ret
+
+    @rpc
+    def get_site(self, url):
+        """Get site by url."""
+        pass
