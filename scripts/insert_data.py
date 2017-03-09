@@ -14,7 +14,7 @@ def insert_data(connection, row):
     db = connection[row[0]]
     collection = db[row[0]]
 
-    site = {'url': row[1], 'title': row[2], 'content': row[3]}
+    site = {'site_id': row[1], 'url': row[2], 'title': row[3], 'content': row[4]}
     collection.update({'url': site['url']}, site, upsert=True)
 
 

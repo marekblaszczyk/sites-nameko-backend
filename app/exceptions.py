@@ -10,7 +10,7 @@ class ServiceException(Exception):
     def __init__(self, message=None):
         self.feedback = dict(message=self.message)
         self.feedback['exc_type'] = self.__class__.__name__
-        self.feedback['origin'] = 'publication-service'
+        self.feedback['origin'] = 'site-service'
         if message is not None:
             self.feedback['message'] = message
 

@@ -25,15 +25,25 @@ class SiteService(object):
         return self.process(sites)
 
     @rpc
-    def get_site(self, url):
+    def get_site(self, site_id=None, url=None):
         """
-        Get site by url.
+        Get site by url or site_id.
 
+        :param site_id: id of looking site
         :param url: Url of page
         :return: Dict with site
         """
 
-        site = self.db.sites.find_one({'url': url})
+        if site_id:
+            site = self.db.sites.find_one({'site_id': site_id})
+        elif url:
+            site = self.db.sites.find_one({'url': url})
+        else:
+            raise NoArgument('Give me site_id or url.')
+
+        if site is None:
+            raise NotFound('No site with this site_id or url.')
+
         return self.process(site)
 
     @staticmethod
