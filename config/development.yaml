@@ -1,4 +1,4 @@
-AMQP_URI: 'amqp://<login>:<password>@<address>/<vhost>'
+AMQP_URI: 'amqp://guest:guest@localhost'
 WEB_SERVER_ADDRESS: '0.0.0.0:9000'
 rpc_exchange: 'nameko-rpc'
 max_workers: 10
