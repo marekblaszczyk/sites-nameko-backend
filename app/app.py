@@ -35,7 +35,7 @@ class SiteService(object):
         """
 
         if site_id:
-            site = self.db.sites.find_one({'site_id': site_id})
+            site = self.db.sites.find_one({'site_id': str(site_id)})
         elif url:
             site = self.db.sites.find_one({'url': url})
         else:
